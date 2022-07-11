@@ -28,6 +28,7 @@ Those who prefer command line interface can refer to the similar [mubi2letterbox
 Ypu can create via virtualenv or pyenv. 
 
 #### Virtualenv
+Before it, you need to install [pyenv](https://github.com/pyenv/pyenv) and [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv) according to your OS.
 ```shell
 virtualenv venv
 source ./venv/bin/activate
