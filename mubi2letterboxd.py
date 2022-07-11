@@ -2,13 +2,15 @@ import sys
 from datetime import datetime
 import requests
 import csv
+
+from PyQt6.QtCore import QCoreApplication
 from PyQt6.QtWidgets import QWidget, QLineEdit, QHBoxLayout, QVBoxLayout, QPushButton, QMessageBox, QFileDialog, \
     QApplication, QLabel
 
 
 class Widget(QWidget):
     URL = "https://mubi.com/services/api/ratings"
-    RECORDS_PER_PAGE = "1000"
+    RECORDS_PER_PAGE = "100"
 
     def __init__(self):
         super().__init__()
@@ -47,6 +49,8 @@ class Widget(QWidget):
             if not filename:
                 return
 
+            self.enable_button(False)
+
             params = {
                 "user_id": self.user_id.text(),
                 "per_page": self.RECORDS_PER_PAGE
@@ -54,6 +58,7 @@ class Widget(QWidget):
             csv_rows = []
             i = 0
             while True:
+                QCoreApplication.processEvents()
                 i += 1
                 params["page"] = str(i)
 
@@ -66,6 +71,8 @@ class Widget(QWidget):
                     row = self.generate_csv_row(record)
                     csv_rows.append(row)
 
+                self.set_label_text("{} records downloaded".format(len(csv_rows)))
+
             with open(filename, mode='w') as csv_file:
                 csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
                 csv_writer.writerow(["tmdbID", "Title", "Year", "Directors", "Rating", "WatchedDate", "Review"])
@@ -75,6 +82,8 @@ class Widget(QWidget):
 
         except Exception as e:
             QMessageBox.warning(self, "", "Error occurred: {}".format(str(e)))
+
+        self.enable_button(True)
 
     @staticmethod
     def generate_csv_row(record):
