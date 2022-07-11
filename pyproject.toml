@@ -1,0 +1,42 @@
+[tool.poetry]
+name = "mubi2letterboxd"
+version = "1.0.0"
+description = ""
+authors = []
+
+[tool.poetry.dependencies]
+python = "^3.9"
+PyQt6 = "6.3.0"
+requests = "2.28.1"
+
+[tool.poetry.dev-dependencies]
+isort = "^5.7.0"
+black = "^20.8b1"
+pre-commit = "^2.10.1"
+autoflake = "^1.4"
+seed-isort-config = "^2.2.0"
+bandit = "^1.7.0"
+flake8 = "^3.9.2"
+
+[tool.isort]
+line_length = 120
+multi_line_output = 3
+include_trailing_comma = true
+sections = ['FUTURE', 'STDLIB', 'THIRDPARTY', 'FIRSTPARTY', 'LOCALFOLDER']
+known_third_party = ""
+
+[tool.black]
+line-length = 120
+exclude = '''
+/(
+  \.git
+  | tmp/
+)/
+'''
+
+[tool.coverage.run]
+plugins = ['django_coverage_plugin']
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
