@@ -1,0 +1,27 @@
+name: run-linters
+on: [push]
+jobs:
+  linters:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.9.0
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9.0
+      - name: Install poetry
+        run: pip install -U pip poetry
+      - name: Install requirements
+        run: poetry install
+      - name: Run autoflake
+        run: autoflake --recursive --in-place -c .
+      - name: Run iSort
+        run: isort --diff -c .
+      - name: Run black
+        run: black --check --diff .
+      - name: Run bandit
+        run: bandit -f html -o bandit-report.html -r .
+        with:
+          name: bandit-report.html
+          path: bandit-report.html
+          retention-days: 3
