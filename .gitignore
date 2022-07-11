@@ -12,6 +12,7 @@
 *.egg-info
 .coverage
 htmlcov/
+venv/
 
 bandit-report.html
 
