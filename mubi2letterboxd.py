@@ -15,8 +15,11 @@ class Widget(QWidget):
     def __init__(self):
         super().__init__()
 
+        title = "User data migration from MUBI.com to letterboxd.com"
+        self.setWindowTitle(title)
+
         self.user_id = QLineEdit()
-        self.user_id.setPlaceholderText("UserID")
+        self.user_id.setPlaceholderText("MUBI UserID")
         self.user_id.textChanged[str].connect(self.on_changed)
 
         self.go_button = QPushButton("Create CSV")
@@ -28,7 +31,7 @@ class Widget(QWidget):
         self.controls_layout.addWidget(self.go_button)
 
         self.label = QLabel()
-        self.set_label_text("Input UserID and chose CSV-file name and location")
+        self.set_label_text("Input MUBI UserID and chose CSV-file name and location")
 
         self.layout = QVBoxLayout(self)
         self.layout.addLayout(self.controls_layout)
