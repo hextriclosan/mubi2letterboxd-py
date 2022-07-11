@@ -21,7 +21,9 @@ jobs:
         run: black --check --diff .
       - name: Run bandit
         run: bandit -f html -o bandit-report.html -r .
+      - name: Upload bandit report
+        uses: actions/upload-artifact@v3
         with:
           name: bandit-report.html
           path: bandit-report.html
-          retention-days: 3
+          retention-days: 5
