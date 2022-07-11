@@ -8,6 +8,7 @@ authors = []
 python = "^3.9"
 PyQt6 = "6.3.0"
 requests = "2.28.1"
+click = "8.0.4"
 
 [tool.poetry.dev-dependencies]
 isort = "^5.7.0"
@@ -23,7 +24,7 @@ line_length = 120
 multi_line_output = 3
 include_trailing_comma = true
 sections = ['FUTURE', 'STDLIB', 'THIRDPARTY', 'FIRSTPARTY', 'LOCALFOLDER']
-known_third_party = ""
+known_third_party = ["PyQt6", "requests"]
 
 [tool.black]
 line-length = 120
