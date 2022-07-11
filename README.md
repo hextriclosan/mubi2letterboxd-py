@@ -41,10 +41,17 @@ pyenv activate mubi2letterboxd
 ```
 
 ### Install requirements
+#### Poetry
 ```shell
 pip install -U pip poetry
 poetry install
 ```
+
+#### Pip
+```shell
+pip install -r requirements.txt
+```
+
 
 ## Use linters
 
