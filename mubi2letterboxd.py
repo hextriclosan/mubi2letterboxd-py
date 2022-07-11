@@ -1,11 +1,20 @@
+import csv
 import sys
 from datetime import datetime
-import requests
-import csv
 
+import requests
 from PyQt6.QtCore import QCoreApplication
-from PyQt6.QtWidgets import QWidget, QLineEdit, QHBoxLayout, QVBoxLayout, QPushButton, QMessageBox, QFileDialog, \
-    QApplication, QLabel
+from PyQt6.QtWidgets import (
+    QApplication,
+    QFileDialog,
+    QHBoxLayout,
+    QLabel,
+    QLineEdit,
+    QMessageBox,
+    QPushButton,
+    QVBoxLayout,
+    QWidget,
+)
 
 
 class Widget(QWidget):
@@ -54,10 +63,7 @@ class Widget(QWidget):
 
             self.enable_button(False)
 
-            params = {
-                "user_id": self.user_id.text(),
-                "per_page": self.RECORDS_PER_PAGE
-            }
+            params = {"user_id": self.user_id.text(), "per_page": self.RECORDS_PER_PAGE}
             csv_rows = []
             i = 0
             while True:
@@ -76,8 +82,8 @@ class Widget(QWidget):
 
                 self.set_label_text("{} records downloaded".format(len(csv_rows)))
 
-            with open(filename, mode='w') as csv_file:
-                csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
+            with open(filename, mode="w") as csv_file:
+                csv_writer = csv.writer(csv_file, delimiter=",", quotechar='"')
                 csv_writer.writerow(["tmdbID", "Title", "Year", "Directors", "Rating", "WatchedDate", "Review"])
                 csv_writer.writerows(csv_rows)
 
@@ -90,13 +96,13 @@ class Widget(QWidget):
 
     @staticmethod
     def generate_csv_row(record):
-        record_id = str(record['id'])
-        title = record['film']['title']
-        year = str(record['film']['year'])
-        directors = ", ".join([director['name'] for director in record['film']['directors']])
-        rating = str(record['overall'])
-        time = datetime.utcfromtimestamp(record['updated_at']).strftime('%Y-%m-%d')
-        review = record['body']
+        record_id = str(record["id"])
+        title = record["film"]["title"]
+        year = str(record["film"]["year"])
+        directors = ", ".join([director["name"] for director in record["film"]["directors"]])
+        rating = str(record["overall"])
+        time = datetime.utcfromtimestamp(record["updated_at"]).strftime("%Y-%m-%d")
+        review = record["body"]
 
         return [record_id, title, year, directors, rating, time, review]
 
