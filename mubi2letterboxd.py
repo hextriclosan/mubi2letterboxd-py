@@ -21,11 +21,10 @@ class Widget(QWidget):
     URL = "https://mubi.com/services/api/ratings"
     RECORDS_PER_PAGE = "100"
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
-        title = "User data migration from MUBI.com to letterboxd.com"
-        self.setWindowTitle(title)
+        self.setWindowTitle("User data migration from MUBI.com to letterboxd.com")
 
         self.user_id = QLineEdit()
         self.user_id.setPlaceholderText("MUBI UserID")
@@ -46,20 +45,22 @@ class Widget(QWidget):
         self.layout.addLayout(self.controls_layout)
         self.layout.addWidget(self.label)
 
-    def on_changed(self, text):
-        self.enable_button(len(text) > 0)
+    def on_changed(self, text: str) -> None:
+        is_enabled = len(text) > 0
+        self.enable_button(is_enabled)
 
-    def enable_button(self, enabled):
+    def enable_button(self, enabled: bool) -> None:
         self.go_button.setEnabled(enabled)
 
-    def set_label_text(self, text):
+    def set_label_text(self, text: str) -> None:
         self.label.setText(text)
 
-    def get_and_save(self):
+    # TODO: the function has only one goal; name "<something>_<and|or>_<something> is not good
+    def get_and_save(self) -> None:
         try:
             filename, _ = QFileDialog.getSaveFileName(self, caption="Save CSV file", filter="CSV Files (*.csv)")
             if not filename:
-                return
+                return  # TODO: to show an alert
 
             self.enable_button(False)
 
@@ -72,22 +73,24 @@ class Widget(QWidget):
                 params["page"] = str(i)
 
                 response = requests.get(self.URL, params=params)
-                json = response.json()
-                if len(json) == 0:
+                json = response.json()  # TODO: to rename the var
+                if len(json) == 0:  # "if not json" is much better than "if len(json) == 0"
                     break
 
                 for record in json:
                     row = self.generate_csv_row(record)
                     csv_rows.append(row)
 
-                self.set_label_text("{} records downloaded".format(len(csv_rows)))
+                self.set_label_text(f"{len(csv_rows)} records downloaded")  # TODO: to use f-string for formatting
 
+            # TODO: to move the below code to separated function
             with open(filename, mode="w") as csv_file:
                 csv_writer = csv.writer(csv_file, delimiter=",", quotechar='"')
                 csv_writer.writerow(["tmdbID", "Title", "Year", "Directors", "Rating", "WatchedDate", "Review"])
                 csv_writer.writerows(csv_rows)
 
-            self.set_label_text("{} records downloaded and saved as {}".format(len(csv_rows), filename))
+            # TODO: to use f-string for formatting
+            self.set_label_text(f"{len(csv_rows)} records downloaded and saved as {filename}")
 
         except Exception as e:
             QMessageBox.warning(self, "", "Error occurred: {}".format(str(e)))
@@ -95,7 +98,7 @@ class Widget(QWidget):
         self.enable_button(True)
 
     @staticmethod
-    def generate_csv_row(record):
+    def generate_csv_row(record: list) -> list:
         record_id = str(record["id"])
         title = record["film"]["title"]
         year = str(record["film"]["year"])
