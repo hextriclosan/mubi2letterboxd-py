@@ -13,22 +13,30 @@ Open your profile page on MUBI. Examine your browser address line to find out yo
 
 Then input UserID to the application window.
 
-# Run
-`python mubi2letterboxd.py`
+# Quick start
+## Install dependencies
+```shell
+pip install -r requirements.txt
+````
+
+## Run application
+```shell
+python mubi2letterboxd.py
+```
 
 ![Program Window](docs/images/window.png "Program Window")
-
 Those who prefer command line interface can refer to the similar [mubi2letterboxd](https://github.com/hextriclosan/mubi2letterboxd) application I wrote in Golang.
+
 
 # Maintain
 
 ## Install
 
 ### Create environment
-Ypu can create via virtualenv or pyenv. 
+You can create environment either with virtualenv or pyenv.
 
 #### Virtualenv
-Before it, you need to install [pyenv](https://github.com/pyenv/pyenv) and [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv) according to your OS.
+Before it, you need to install [pyenv](https://github.com/pyenv/pyenv) and [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv) for your OS.
 ```shell
 virtualenv venv
 source ./venv/bin/activate
@@ -41,6 +49,7 @@ pyenv activate mubi2letterboxd
 ```
 
 ### Install requirements
+You can use either Poetry or Pip
 #### Poetry
 ```shell
 pip install -U pip poetry
@@ -51,7 +60,6 @@ poetry install
 ```shell
 pip install -r requirements.txt
 ```
-
 
 ## Use linters
 
