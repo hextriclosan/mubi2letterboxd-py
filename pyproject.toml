@@ -17,7 +17,7 @@ pre-commit = "^2.10.1"
 autoflake = "^1.4"
 seed-isort-config = "^2.2.0"
 bandit = "^1.7.0"
-flake8 = "^3.9.2"
+flake8 = "^6.0.0"
 
 [tool.isort]
 line_length = 120
