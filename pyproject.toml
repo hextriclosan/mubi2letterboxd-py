@@ -7,7 +7,7 @@ authors = []
 [tool.poetry.dependencies]
 python = "^3.9"
 PyQt6 = "6.6.0"
-requests = "2.28.1"
+requests = "2.32.4"
 click = "8.0.4"
 
 [tool.poetry.dev-dependencies]
